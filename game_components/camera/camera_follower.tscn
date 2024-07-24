@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpvtjkg4vntmx"]
+
+[ext_resource type="Script" path="res://game_components/camera/camera_follower.cs" id="1_upkdl"]
+
+[node name="CameraFollower" type="Camera2D"]
+position = Vector2(90, 160)
+script = ExtResource("1_upkdl")
