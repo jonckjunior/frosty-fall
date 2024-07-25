@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://bchh3wagdvnrv"]
+[gd_scene load_steps=6 format=3 uid="uid://bchh3wagdvnrv"]
 
 [ext_resource type="Script" path="res://main_game.gd" id="1_ttjcc"]
-[ext_resource type="PackedScene" uid="uid://cqjf4e84i667t" path="res://game_components/map_pieces/map_0.tscn" id="2_kckop"]
 [ext_resource type="PackedScene" uid="uid://b82yagyjxtrj" path="res://game_components/player/player.tscn" id="2_t67bp"]
 [ext_resource type="PackedScene" uid="uid://cpvtjkg4vntmx" path="res://game_components/camera/camera_follower.tscn" id="3_e231b"]
 [ext_resource type="PackedScene" uid="uid://f0mstioeamdm" path="res://assets/standard_text.tscn" id="5_odbx6"]
@@ -29,8 +28,6 @@ offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.933333, 0.972549, 0.996078, 1)
-
-[node name="map_0" parent="." instance=ExtResource("2_kckop")]
 
 [node name="Holders" type="Node2D" parent="."]
 

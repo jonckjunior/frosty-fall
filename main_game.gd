@@ -13,6 +13,10 @@ class_name MainGame
 @onready var effect_holder: Node2D = $Holders/EffectHolder
 @onready var detail_holder: Node2D = $Holders/DetailHolder
 @onready var shadow_holder: Node2D = $Holders/ShadowHolder
+@onready var possible_maps: Array = [
+	preload("res://game_components/map_pieces/map_0/map.tscn"),
+	preload("res://game_components/map_pieces/map_1/map.tscn")
+]
 
 var loaded_maps: Array[Triple] = []
 
@@ -23,16 +27,16 @@ func _ready():
 	#var starterEnder = configure_new_map(map)
 	#loaded_maps.append(Triple.new(map, starterEnder.first, starterEnder.second))
 	
-	add_new_map()
-	add_new_map()
+	add_new_map(0)
+	add_new_map(1)
 	player.create_trail.connect(create_trail_for_player)
 	player.landed.connect(on_player_landed)
 	
 	GameManager.main_game = self
 	
 
-func add_new_map():
-	var new_map = load("res://game_components/map_pieces/map_0.tscn").instantiate()
+func add_new_map(map_index: int = 0):
+	var new_map = possible_maps[map_index].instantiate()
 	var starterEnder = configure_new_map(new_map)
 	
 	if not loaded_maps.is_empty():

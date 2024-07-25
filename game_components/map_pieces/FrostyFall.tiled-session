@@ -7,12 +7,47 @@
     "expandedProjectPaths": [
     ],
     "fileStates": {
+        "FrostyFall.tsx": {
+            "scaleInEditor": 1
+        },
         "map_0.tmx": {
-            "scale": 1,
-            "selectedLayer": 3,
+            "scale": 0.75,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 259.5,
-                "y": 585.5
+                "x": 232.66666666666663,
+                "y": 499.3333333333333
+            }
+        },
+        "map_0/map.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 232.66666666666663,
+                "y": 499.3333333333333
+            }
+        },
+        "map_0/map_0.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 232.66666666666663,
+                "y": 499.3333333333333
+            }
+        },
+        "map_1.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 266,
+                "y": 462
+            }
+        },
+        "map_1/map_1.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 266,
+                "y": 462
             }
         }
     },
@@ -26,7 +61,9 @@
     ],
     "project": "FrostyFall.tiled-project",
     "recentFiles": [
-        "map_0.tmx"
+        "map_0.tmx",
+        "FrostyFall.tsx",
+        "map_1.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
