@@ -40,7 +40,7 @@ func configure_new_map(new_map) -> Pair:
 	return Pair.new(starter, ender)
 
 func kill_player(_body):
-	get_tree().reload_current_scene()
+	player.hit_bumper()
 
 func create_trail_for_player():
 	var trail = load("res://game_components/player/Trail.tscn").instantiate()
@@ -51,3 +51,5 @@ func create_trail_for_player():
 func _input(event):
 	if event is InputEvent and (event as InputEvent).is_action_pressed("click"):
 		player.initialize_player()
+	if event is InputEvent and (event as InputEvent).is_action_pressed("reload"):
+		get_tree().reload_current_scene()
