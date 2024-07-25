@@ -5,6 +5,7 @@ class_name MainGame
 @export var cameraFollower: CameraFollower
 @onready var effects: Node2D = $Effects
 @onready var map_holder: Node2D = $MapHolder
+@onready var landed_effect_raw: Resource = load("res://assets/player/falling_particle.tscn")
 
 var loaded_maps: Array[Triple] = []
 
@@ -14,7 +15,10 @@ func _ready():
 	map_holder.add_child(map)
 	var starterEnder = configure_new_map(map)
 	loaded_maps.append(Triple.new(map, starterEnder.first, starterEnder.second))
+	
+	
 	player.create_trail.connect(create_trail_for_player)
+	player.landed.connect(on_player_landed)
 	
 
 func configure_new_map(new_map) -> Pair:
@@ -53,3 +57,9 @@ func _input(event):
 		player.initialize_player()
 	if event is InputEvent and (event as InputEvent).is_action_pressed("reload"):
 		get_tree().reload_current_scene()
+
+func on_player_landed():
+	var landed_effect = landed_effect_raw.instantiate()
+	landed_effect.global_position = player.global_position
+	landed_effect.rotation = player.animation.rotation - PI/2
+	effects.add_child(landed_effect)

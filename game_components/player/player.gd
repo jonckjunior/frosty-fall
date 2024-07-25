@@ -12,6 +12,7 @@ var boost: float = 0
 
 
 signal create_trail
+signal landed
 
 func _ready():
 	timer.connect("timeout", on_timer_timout)
@@ -40,6 +41,9 @@ func handle_movement(delta):
 	movement_speed = min(movement_speed, max_movement_speed)
 
 func handle_animation():
+	if animation.position.y + boost >= 0 and animation.position.y < 0:
+		landed.emit()
+	
 	animation.position.y = min(0, animation.position.y + boost)
 	animation.rotation = direction.rotation - PI / 2
 

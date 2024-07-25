@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://c6vjrlhooxi4p"]
+
+[ext_resource type="Texture2D" uid="uid://2uthc1b1kngu" path="res://assets/player/falling_particle1.png" id="1_f7jfq"]
+[ext_resource type="Texture2D" uid="uid://uic4kla4do2u" path="res://assets/player/falling_particle2.png" id="2_fff4g"]
+[ext_resource type="Texture2D" uid="uid://b41qan1y5rnxu" path="res://assets/player/falling_particle3.png" id="3_urk16"]
+[ext_resource type="Script" path="res://assets/player/falling_particle.gd" id="4_16qp7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dpyst"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_f7jfq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_fff4g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_urk16")
+}],
+"loop": false,
+"name": &"default",
+"speed": 7.0
+}]
+
+[node name="FallingParticle" type="AnimatedSprite2D"]
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_dpyst")
+autoplay = "default"
+frame = 2
+frame_progress = 1.0
+script = ExtResource("4_16qp7")
