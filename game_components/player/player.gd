@@ -3,6 +3,7 @@ class_name Player extends CharacterBody2D
 @onready var direction: RayCast2D = $Direction
 @onready var animation: AnimatedSprite2D = $Animation
 @onready var timer: Timer = $Timer
+@onready var lane_detecter: Area2D = $LaneDetecter
 @export var shadow: Sprite2D
 
 var movement_speed: float = 0.0
@@ -26,6 +27,8 @@ func _physics_process(delta):
 	handle_animation()
 	handle_movement(delta)
 	handle_shadow()
+	handle_lane_check()
+	move_and_slide()
 
 func handle_gravity(delta):
 	if boost > 0:
@@ -36,7 +39,6 @@ func handle_gravity(delta):
 func handle_movement(delta):
 	var dir = Vector2(cos(direction.rotation), sin(direction.rotation))
 	velocity = dir * movement_speed - velocity
-	move_and_slide()
 	movement_speed += delta * 20
 	movement_speed = min(movement_speed, max_movement_speed)
 
@@ -66,3 +68,7 @@ func is_in_the_air() -> bool:
 func handle_shadow():
 	shadow.visible = is_in_the_air()
 	shadow.scale = Vector2(0.5, 0.5) * (1 + abs(animation.position.y)/50.0)
+
+func handle_lane_check():
+	if lane_detecter.get_overlapping_areas().is_empty():
+		velocity = Vector2.ZERO

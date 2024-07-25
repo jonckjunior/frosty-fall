@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://f0mstioeamdm"]
+
+[ext_resource type="FontFile" uid="uid://3pqxrb7ctp3o" path="res://assets/fonts/font.tres" id="1_1wlxe"]
+
+[node name="ScoreText" type="RichTextLabel"]
+offset_left = 105.0
+offset_top = 3.0
+offset_right = 263.0
+offset_bottom = 43.0
+theme_override_fonts/normal_font = ExtResource("1_1wlxe")
+bbcode_enabled = true
+text = "score"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0

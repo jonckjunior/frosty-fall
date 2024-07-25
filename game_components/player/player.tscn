@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://b82yagyjxtrj"]
+[gd_scene load_steps=70 format=3 uid="uid://b82yagyjxtrj"]
 
 [ext_resource type="Texture2D" uid="uid://d2nbi7ydl5wpq" path="res://assets/player/player.png" id="1_u1ngr"]
 [ext_resource type="Texture2D" uid="uid://iyq5a3qnm7w5" path="res://assets/player/shadow.png" id="1_v4wuu"]
@@ -454,6 +454,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_m5xyb"]
 radius = 7.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yviyy"]
+size = Vector2(8, 8)
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("shadow")]
 script = ExtResource("1_xnx4q")
 shadow = NodePath("ShadowFixer/Shadow")
@@ -461,6 +464,7 @@ shadow = NodePath("ShadowFixer/Shadow")
 [node name="ShadowFixer" type="Node2D" parent="."]
 
 [node name="Shadow" type="Sprite2D" parent="ShadowFixer"]
+modulate = Color(1, 1, 1, 0.756863)
 position = Vector2(0, 3)
 texture = ExtResource("1_v4wuu")
 
@@ -480,3 +484,11 @@ script = ExtResource("2_p8fyr")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.05
 autostart = true
+
+[node name="LaneDetecter" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LaneDetecter"]
+shape = SubResource("RectangleShape2D_yviyy")

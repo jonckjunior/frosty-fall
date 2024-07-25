@@ -1,28 +1,73 @@
-[gd_scene load_steps=5 format=3 uid="uid://bchh3wagdvnrv"]
+[gd_scene load_steps=7 format=3 uid="uid://bchh3wagdvnrv"]
 
 [ext_resource type="Script" path="res://main_game.gd" id="1_ttjcc"]
 [ext_resource type="PackedScene" uid="uid://cqjf4e84i667t" path="res://game_components/map_pieces/map_0.tscn" id="2_kckop"]
 [ext_resource type="PackedScene" uid="uid://b82yagyjxtrj" path="res://game_components/player/player.tscn" id="2_t67bp"]
 [ext_resource type="PackedScene" uid="uid://cpvtjkg4vntmx" path="res://game_components/camera/camera_follower.tscn" id="3_e231b"]
+[ext_resource type="PackedScene" uid="uid://f0mstioeamdm" path="res://assets/standard_text.tscn" id="5_odbx6"]
+[ext_resource type="Script" path="res://scripts/score_points.gd" id="6_2imfe"]
 
 [node name="MainGame" type="Node2D" node_paths=PackedStringArray("player", "cameraFollower")]
-y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("1_ttjcc")
-player = NodePath("Player")
+player = NodePath("Holders/PlayerHolder/Player")
 cameraFollower = NodePath("CameraFollower")
+
+[node name="CameraFollower" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_e231b")]
+target = NodePath("../Holders/PlayerHolder/Player")
+
+[node name="ColorRect" type="ColorRect" parent="CameraFollower"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = -160.0
+offset_right = 90.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.933333, 0.972549, 0.996078, 1)
 
 [node name="map_0" parent="." instance=ExtResource("2_kckop")]
 
-[node name="MapHolder" type="Node2D" parent="."]
+[node name="Holders" type="Node2D" parent="."]
 
-[node name="Effects" type="Node2D" parent="."]
+[node name="MapHolder" type="Node2D" parent="Holders"]
 
-[node name="Player" parent="." instance=ExtResource("2_t67bp")]
+[node name="BackgroundHolder" type="Node2D" parent="Holders"]
+
+[node name="LanesHolder" type="Node2D" parent="Holders"]
+
+[node name="ShadowHolder" type="Node2D" parent="Holders"]
+
+[node name="EffectHolder" type="Node2D" parent="Holders"]
+
+[node name="KillerHolder" type="Node2D" parent="Holders"]
+
+[node name="PlayerHolder" type="Node2D" parent="Holders"]
+
+[node name="Player" parent="Holders/PlayerHolder" instance=ExtResource("2_t67bp")]
 position = Vector2(130, 88)
 
-[node name="CameraFollower" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_e231b")]
-position = Vector2(270, 161)
-target = NodePath("../Player")
+[node name="DetailHolder" type="Node2D" parent="Holders"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Score" type="Node2D" parent="CanvasLayer"]
+texture_filter = 1
+
+[node name="ScoreText" parent="CanvasLayer/Score" instance=ExtResource("5_odbx6")]
+offset_left = 118.0
+offset_top = 2.0
+offset_right = 276.0
+offset_bottom = 42.0
+
+[node name="ScorePoints" parent="CanvasLayer/Score" instance=ExtResource("5_odbx6")]
+offset_left = 124.0
+offset_top = 17.0
+offset_right = 176.0
+offset_bottom = 51.0
+text = "[center]123.3"
+script = ExtResource("6_2imfe")

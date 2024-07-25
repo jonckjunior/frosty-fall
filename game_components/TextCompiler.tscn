@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cm1wslcfdnebq"]
+
+[ext_resource type="Script" path="res://game_components/TextCompiler.gd" id="1_ap34b"]
+
+[node name="TextCompiler" type="Node2D"]
+script = ExtResource("1_ap34b")
