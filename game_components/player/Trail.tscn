@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://ntjsavuixaw5"]
+
+[ext_resource type="Texture2D" uid="uid://gkdbdn8yiokt" path="res://assets/player/trail.png" id="1_kf5mj"]
+[ext_resource type="Script" path="res://game_components/player/Trail.gd" id="2_cyf5p"]
+
+[node name="Trail" type="Sprite2D"]
+texture = ExtResource("1_kf5mj")
+script = ExtResource("2_cyf5p")

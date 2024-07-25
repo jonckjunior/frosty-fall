@@ -1,14 +1,28 @@
-[gd_scene load_steps=4 format=3 uid="uid://bchh3wagdvnrv"]
+[gd_scene load_steps=5 format=3 uid="uid://bchh3wagdvnrv"]
 
-[ext_resource type="Script" path="res://main_game.cs" id="1_1h4el"]
+[ext_resource type="Script" path="res://main_game.gd" id="1_ttjcc"]
+[ext_resource type="PackedScene" uid="uid://cqjf4e84i667t" path="res://game_components/map_pieces/map_0.tscn" id="2_kckop"]
 [ext_resource type="PackedScene" uid="uid://b82yagyjxtrj" path="res://game_components/player/player.tscn" id="2_t67bp"]
 [ext_resource type="PackedScene" uid="uid://cpvtjkg4vntmx" path="res://game_components/camera/camera_follower.tscn" id="3_e231b"]
 
-[node name="MainGame" type="Node2D"]
+[node name="MainGame" type="Node2D" node_paths=PackedStringArray("player", "cameraFollower")]
+y_sort_enabled = true
 texture_filter = 1
-script = ExtResource("1_1h4el")
+script = ExtResource("1_ttjcc")
+player = NodePath("Player")
+cameraFollower = NodePath("CameraFollower")
+
+[node name="map_0" parent="." instance=ExtResource("2_kckop")]
+
+[node name="MapHolder" type="Node2D" parent="."]
+
+[node name="Effects" type="Node2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("2_t67bp")]
-position = Vector2(93, 9)
+position = Vector2(268, 88)
 
-[node name="CameraFollower" parent="." instance=ExtResource("3_e231b")]
+[node name="CameraFollower" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_e231b")]
+position = Vector2(270, 161)
+target = NodePath("../Player")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
