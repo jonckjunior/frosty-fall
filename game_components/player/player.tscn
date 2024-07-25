@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://b82yagyjxtrj"]
+[gd_scene load_steps=74 format=3 uid="uid://b82yagyjxtrj"]
 
 [ext_resource type="Texture2D" uid="uid://d2nbi7ydl5wpq" path="res://assets/player/player.png" id="1_u1ngr"]
 [ext_resource type="Texture2D" uid="uid://iyq5a3qnm7w5" path="res://assets/player/shadow.png" id="1_v4wuu"]
@@ -6,6 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://hgumakastlbq" path="res://assets/player/player2.png" id="2_680h1"]
 [ext_resource type="Script" path="res://game_components/player/Direction.gd" id="2_p8fyr"]
 [ext_resource type="Texture2D" uid="uid://chhr25bawacm0" path="res://assets/player/ski_player_grabe_me-sheet.png" id="4_ker64"]
+[ext_resource type="AudioStream" uid="uid://dw0jg41fqhpi1" path="res://assets/audio/jump.wav" id="7_nyiof"]
+[ext_resource type="AudioStream" uid="uid://bp23ivjsilt2c" path="res://assets/audio/rowing.wav" id="8_auhbr"]
+[ext_resource type="AudioStream" uid="uid://dvk4cdp827y3d" path="res://assets/audio/hurt.wav" id="9_qd87t"]
+[ext_resource type="AudioStream" uid="uid://fbfhtglaq7g2" path="res://assets/audio/explosion.wav" id="10_00w75"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_25iys"]
 atlas = ExtResource("4_ker64")
@@ -265,6 +269,11 @@ animations = [{
 "name": &"default",
 "speed": 1.0
 }, {
+"frames": [],
+"loop": true,
+"name": &"dying",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_25iys")
@@ -452,10 +461,10 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m5xyb"]
-radius = 7.0
+radius = 6.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yviyy"]
-size = Vector2(8, 8)
+[sub_resource type="CircleShape2D" id="CircleShape2D_n20nu"]
+radius = 8.0
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("shadow")]
 script = ExtResource("1_xnx4q")
@@ -470,7 +479,6 @@ texture = ExtResource("1_v4wuu")
 
 [node name="Animation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_pgn62")
-animation = &"grab_me"
 autoplay = "default"
 
 [node name="Collision" type="CollisionShape2D" parent="."]
@@ -491,4 +499,16 @@ collision_mask = 2
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LaneDetecter"]
-shape = SubResource("RectangleShape2D_yviyy")
+shape = SubResource("CircleShape2D_n20nu")
+
+[node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_nyiof")
+
+[node name="RowingSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_auhbr")
+
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_qd87t")
+
+[node name="ExplosionSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_00w75")

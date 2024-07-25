@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://chrohfnw0d0jv"]
+
+[ext_resource type="Script" path="res://game_components/player/wolf.gd" id="1_7383y"]
+[ext_resource type="Texture2D" uid="uid://iyq5a3qnm7w5" path="res://assets/player/shadow.png" id="2_bb2cj"]
+[ext_resource type="Texture2D" uid="uid://do76d5hxd4fgb" path="res://assets/wolf/wolf1.png" id="3_lemrh"]
+[ext_resource type="Texture2D" uid="uid://bie171hpgr3se" path="res://assets/wolf/wolf2.png" id="4_3lklq"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pgn62"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_lemrh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3lklq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Wolf" type="CharacterBody2D"]
+texture_filter = 1
+script = ExtResource("1_7383y")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.756863)
+position = Vector2(0, 3)
+texture = ExtResource("2_bb2cj")
+
+[node name="Animation" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_pgn62")
+autoplay = "default"

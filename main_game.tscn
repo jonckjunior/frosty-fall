@@ -43,10 +43,19 @@ color = Color(0.933333, 0.972549, 0.996078, 1)
 
 [node name="KillerHolder" type="Node2D" parent="Holders"]
 
+[node name="BumperHolder" type="Node2D" parent="Holders"]
+
+[node name="ClickOnMeText" parent="Holders" instance=ExtResource("5_odbx6")]
+offset_left = 93.0
+offset_top = 30.0
+offset_right = 251.0
+offset_bottom = 70.0
+text = "click  on  me"
+
 [node name="PlayerHolder" type="Node2D" parent="Holders"]
 
 [node name="Player" parent="Holders/PlayerHolder" instance=ExtResource("2_t67bp")]
-position = Vector2(130, 88)
+position = Vector2(148, 57)
 
 [node name="DetailHolder" type="Node2D" parent="Holders"]
 

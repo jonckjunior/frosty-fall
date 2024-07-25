@@ -13,6 +13,7 @@ class_name MainGame
 @onready var effect_holder: Node2D = $Holders/EffectHolder
 @onready var detail_holder: Node2D = $Holders/DetailHolder
 @onready var shadow_holder: Node2D = $Holders/ShadowHolder
+@onready var bumper_holder: Node2D = $Holders/BumperHolder
 @onready var possible_maps: Array = [
 	preload("res://game_components/map_pieces/map_0/map.tscn"),
 	preload("res://game_components/map_pieces/map_1/map.tscn")
@@ -52,11 +53,13 @@ func add_new_map(map_index: int = 0):
 	new_map.get_node("Shadow").reparent(shadow_holder)
 	new_map.get_node("Killer").reparent(killer_holder)
 	new_map.get_node("Detail").reparent(detail_holder)
+	new_map.get_node("Bumper").reparent(bumper_holder)
 	
 
 func configure_new_map(new_map) -> Pair:
 	configure_killer(new_map)
 	configure_lanes(new_map)
+	configure_bumper(new_map)
 	
 	var starter = new_map.get_node("Starter").get_used_cells(0).front()
 	var ender = new_map.get_node("Ender").get_used_cells(0).front()
@@ -96,9 +99,32 @@ func configure_killer(new_map):
 		tilemap.add_child(area)
 		area.position = cell * 16.0 + Vector2(8, 8)
 		
-		area.connect("body_entered", kill_player)
+		area.connect("body_entered", on_player_killer)
 
-func kill_player(_body):
+func configure_bumper(new_map):
+	var tilemap: TileMap = new_map.get_node("Bumper")
+	var used_cells = tilemap.get_used_cells(0)
+	for cell in used_cells:
+		var area = Area2D.new()
+		var collision: CollisionShape2D = CollisionShape2D.new()
+		var rectangleShape = RectangleShape2D.new()
+		rectangleShape.size = Vector2(16, 16)
+		
+		collision.shape = rectangleShape
+		
+		area.add_child(collision)
+		tilemap.add_child(area)
+		area.position = cell * 16.0 + Vector2(8, 8)
+		
+		area.connect("body_entered", on_hit_bumper)
+
+func on_player_killer(_body):
+	if not player.is_in_the_air():
+		player.is_initialized = false
+		cameraFollower.apply_shake(1.0)
+		player.die_to_obstacle()
+
+func on_hit_bumper(_body):
 	player.hit_bumper()
 
 func create_trail_for_player():
@@ -110,6 +136,7 @@ func create_trail_for_player():
 func _input(event):
 	if event is InputEvent and (event as InputEvent).is_action_pressed("click"):
 		player.initialize_player()
+		cameraFollower.apply_shake(0.2)
 	if event is InputEvent and (event as InputEvent).is_action_pressed("reload"):
 		get_tree().reload_current_scene()
 
