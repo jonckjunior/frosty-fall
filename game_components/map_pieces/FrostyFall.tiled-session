@@ -8,11 +8,11 @@
     ],
     "fileStates": {
         "map_0.tmx": {
-            "scale": 2,
+            "scale": 1,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 288.75,
-                "y": 177.75
+                "x": 259.5,
+                "y": 585.5
             }
         }
     },
