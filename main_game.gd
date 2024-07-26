@@ -3,6 +3,7 @@ class_name MainGame
 
 @export var player: Player
 @export var cameraFollower: CameraFollower
+@export var click_on_me: RichTextLabel
 
 @onready var landed_effect_raw: Resource = load("res://assets/player/falling_particle.tscn")
 
@@ -15,28 +16,27 @@ class_name MainGame
 @onready var shadow_holder: Node2D = $Holders/ShadowHolder
 @onready var bumper_holder: Node2D = $Holders/BumperHolder
 @onready var possible_maps: Array = [
-	preload("res://game_components/map_pieces/map_0/map.tscn"),
-	preload("res://game_components/map_pieces/map_1/map.tscn")
+	preload("res://game_components/map_pieces/map_0/map_0.tmx"),
+	preload("res://game_components/map_pieces/map_1/map_1.tmx"),
+	preload("res://game_components/map_pieces/map_2/map_2.tmx"),
+	preload("res://game_components/map_pieces/map_3/map_3.tmx"),
 ]
 
 var loaded_maps: Array[Triple] = []
 
  
 func _ready():
-	#var map = load("res://game_components/map_pieces/map_0.tscn").instantiate()
-	#map_holder.add_child(map)
-	#var starterEnder = configure_new_map(map)
-	#loaded_maps.append(Triple.new(map, starterEnder.first, starterEnder.second))
-	
 	add_new_map(0)
 	add_new_map(1)
+	add_new_map(2)
+	add_new_map(3)
 	player.create_trail.connect(create_trail_for_player)
 	player.landed.connect(on_player_landed)
 	
 	GameManager.main_game = self
 	
 
-func add_new_map(map_index: int = 0):
+func add_new_map(map_index: int):
 	var new_map = possible_maps[map_index].instantiate()
 	var starterEnder = configure_new_map(new_map)
 	
@@ -137,6 +137,7 @@ func _input(event):
 	if event is InputEvent and (event as InputEvent).is_action_pressed("click"):
 		player.initialize_player()
 		cameraFollower.apply_shake(0.2)
+		click_on_me.visible = false
 	if event is InputEvent and (event as InputEvent).is_action_pressed("reload"):
 		get_tree().reload_current_scene()
 

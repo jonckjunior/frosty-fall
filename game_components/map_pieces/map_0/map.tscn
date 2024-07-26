@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://75w54r7231p7"]
-
-[ext_resource type="PackedScene" uid="uid://jt4if61oarg1" path="res://game_components/map_pieces/map_0/map.tmx" id="1_de168"]
-
-[node name="map" instance=ExtResource("1_de168")]

@@ -3,11 +3,15 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "map_1/map.tmx",
     "expandedProjectPaths": [
+        "map_1",
+        "map_0",
+        "."
     ],
     "fileStates": {
         "FrostyFall.tsx": {
+            "scaleInDock": 2,
             "scaleInEditor": 1
         },
         "map_0.tmx": {
@@ -19,11 +23,11 @@
             }
         },
         "map_0/map.tmx": {
-            "scale": 0.75,
-            "selectedLayer": 1,
+            "scale": 1,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 232.66666666666663,
-                "y": 499.3333333333333
+                "x": 340.5,
+                "y": 541.5
             }
         },
         "map_0/map_0.tmx": {
@@ -34,6 +38,14 @@
                 "y": 499.3333333333333
             }
         },
+        "map_0/map_2.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 42.5,
+                "y": 7.5
+            }
+        },
         "map_1.tmx": {
             "scale": 0.75,
             "selectedLayer": 4,
@@ -42,12 +54,60 @@
                 "y": 462
             }
         },
+        "map_1/map.tmx": {
+            "scale": 1,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 278.5,
+                "y": 651.5
+            }
+        },
         "map_1/map_1.tmx": {
             "scale": 0.75,
             "selectedLayer": 4,
             "viewCenter": {
                 "x": 266,
                 "y": 462
+            }
+        },
+        "map_1/map_2.tmx": {
+            "scale": 1,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 278.5,
+                "y": 650.5
+            }
+        },
+        "map_2/map.tmx": {
+            "scale": 0.9302083333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 288.64501679731245,
+                "y": 484.30011198208285
+            }
+        },
+        "map_2/map_2.tmx": {
+            "scale": 0.9302083333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 288.64501679731245,
+                "y": 484.30011198208285
+            }
+        },
+        "map_2/mapzera.tmx": {
+            "scale": 0.9302083333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 288.64501679731245,
+                "y": 484.30011198208285
+            }
+        },
+        "map_3/map3.tmx": {
+            "scale": 0.9302083333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 288.64501679731245,
+                "y": 480
             }
         }
     },
@@ -58,9 +118,18 @@
     "map.tileWidth": 16,
     "map.width": 36,
     "openFiles": [
+        "map_0/map.tmx",
+        "map_1/map.tmx"
     ],
     "project": "FrostyFall.tiled-project",
     "recentFiles": [
+        "map_2/mapzera.tmx",
+        "map_2/map_2.tmx",
+        "map_0/map.tmx",
+        "map_2/map.tmx",
+        "map_1/map_2.tmx",
+        "map_0/map_2.tmx",
+        "map_1/map.tmx",
         "map_0.tmx",
         "FrostyFall.tsx",
         "map_1.tmx"

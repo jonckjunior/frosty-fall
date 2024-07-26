@@ -26,6 +26,8 @@ func _ready():
 func play_rowing_sound():
 	if animation.animation == "default" and animation.frame == 1:
 		$RowingSound.play()
+		landed.emit()
+		
 
 func _physics_process(delta):
 	if not is_initialized:
@@ -35,6 +37,7 @@ func _physics_process(delta):
 	handle_movement(delta)
 	handle_shadow()
 	handle_lane_check()
+	squish_and_squash()
 	move_and_slide()
 
 func handle_gravity(delta):
@@ -98,3 +101,20 @@ func die_to_obstacle():
 	is_initialized = false
 	velocity = Vector2.ZERO
 	animation.stop()
+
+func squish_and_squash() -> void:
+	var maxX = max_movement_speed
+	var maxY = max_movement_speed
+	
+	var newScaleY = 1 - min(abs(velocity.x), maxX) / maxX * 0.5
+	var newScaleX = 1 - min(abs(velocity.y), maxY) / maxY * 0.5
+	
+	var sum = newScaleX + newScaleY
+	if sum < 2:
+		if newScaleX >= newScaleY:
+			newScaleX += 2 - sum
+		else:
+			newScaleY += 2 - sum
+
+	animation.scale.x = snapped(lerp(animation.scale.x, newScaleX, 0.2), 0.04)
+	animation.scale.y = snapped(lerp(animation.scale.y, newScaleY, 0.2), 0.04)
