@@ -16,6 +16,7 @@ var boost: float = 0
 
 signal create_trail
 signal landed
+signal game_over
 
 func _ready():
 	timer.connect("timeout", on_timer_timout)
@@ -27,7 +28,10 @@ func play_rowing_sound():
 	if animation.animation == "default" and animation.frame == 1:
 		$RowingSound.play()
 		landed.emit()
-		
+	if animation.animation == "shatter" and animation.frame == 40:
+		explosion_sound.play()
+	if animation.animation == "shatter" and animation.frame == 80:
+		game_over.emit()
 
 func _physics_process(delta):
 	if not is_initialized:
@@ -100,7 +104,7 @@ func die_to_obstacle():
 	play_hurt_sound()
 	is_initialized = false
 	velocity = Vector2.ZERO
-	animation.stop()
+	animation.play("shatter")
 
 func squish_and_squash() -> void:
 	var maxX = max_movement_speed

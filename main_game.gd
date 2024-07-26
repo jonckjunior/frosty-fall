@@ -4,6 +4,8 @@ class_name MainGame
 @export var player: Player
 @export var cameraFollower: CameraFollower
 @export var click_on_me: RichTextLabel
+@export var transition_rect: ColorRect
+@export var end_game: Node2D
 
 @onready var landed_effect_raw: Resource = load("res://assets/player/falling_particle.tscn")
 
@@ -15,56 +17,58 @@ class_name MainGame
 @onready var detail_holder: Node2D = $Holders/DetailHolder
 @onready var shadow_holder: Node2D = $Holders/ShadowHolder
 @onready var bumper_holder: Node2D = $Holders/BumperHolder
+@onready var game_over_sound: AudioStreamPlayer2D = $Audio/GameOverSound
 @onready var possible_maps: Array = [
 	preload("res://game_components/map_pieces/map_0/map_0.tmx"),
 	preload("res://game_components/map_pieces/map_1/map_1.tmx"),
 	preload("res://game_components/map_pieces/map_2/map_2.tmx"),
-	preload("res://game_components/map_pieces/map_3/map_3.tmx"),
+	preload("res://game_components/map_pieces/map_3/mapzera_3.tmx"),
+	preload("res://game_components/map_pieces/map_4/map_4.tmx"),
 ]
 
-var loaded_maps: Array[Triple] = []
+var loaded_maps: Array[Pair] = []
 
  
 func _ready():
 	add_new_map(0)
-	add_new_map(1)
-	add_new_map(2)
-	add_new_map(3)
 	player.create_trail.connect(create_trail_for_player)
 	player.landed.connect(on_player_landed)
 	
 	GameManager.main_game = self
+
+func _physics_process(_delta):
+	if player.global_position.y > loaded_maps.back().first.y:
+		add_new_map(randi_range(0, possible_maps.size() - 1))
 	
+	free_nodes()
 
 func add_new_map(map_index: int):
 	var new_map = possible_maps[map_index].instantiate()
-	var starterEnder = configure_new_map(new_map)
+	map_holder.add_child(new_map)
+	configure_new_map(new_map)
+
+	var starter_tile = new_map.get_node("Starter").get_used_cells(0).front()
+	var ender_tile = new_map.get_node("Ender").get_used_cells(0).front()
 	
 	if not loaded_maps.is_empty():
-		var triple = loaded_maps.back()
-		var last_map = triple.first
-		var ender_position = triple.third
-		var offset_starter = starterEnder.first * 16.0
-		new_map.global_position = Vector2(ender_position.x, ender_position.y + 1) * 16.0 + last_map.global_position - offset_starter
+		var ender_position = loaded_maps.back().second
+		new_map.global_position = ender_position - Vector2(starter_tile.x, 0) * 16 + Vector2(0, 16)
 	
-	loaded_maps.append(Triple.new(new_map, starterEnder.first, starterEnder.second))
+	var ender_position = new_map.global_position + ender_tile * 16.0
+	var starter_position = new_map.global_position + starter_tile * 16.0
+	
+	loaded_maps.append(Pair.new(starter_position, ender_position))
 	new_map.get_node("Background").reparent(background_holder)
 	new_map.get_node("Lane").reparent(lanes_holder)
 	new_map.get_node("Shadow").reparent(shadow_holder)
 	new_map.get_node("Killer").reparent(killer_holder)
 	new_map.get_node("Detail").reparent(detail_holder)
 	new_map.get_node("Bumper").reparent(bumper_holder)
-	
 
-func configure_new_map(new_map) -> Pair:
+func configure_new_map(new_map):
 	configure_killer(new_map)
 	configure_lanes(new_map)
 	configure_bumper(new_map)
-	
-	var starter = new_map.get_node("Starter").get_used_cells(0).front()
-	var ender = new_map.get_node("Ender").get_used_cells(0).front()
-
-	return Pair.new(starter, ender)
 
 func configure_lanes(new_map):
 	var tilemap: TileMap = new_map.get_node("Lane")
@@ -123,6 +127,8 @@ func on_player_killer(_body):
 		player.is_initialized = false
 		cameraFollower.apply_shake(1.0)
 		player.die_to_obstacle()
+		await player.game_over
+		game_over()
 
 func on_hit_bumper(_body):
 	player.hit_bumper()
@@ -146,3 +152,28 @@ func on_player_landed():
 	landed_effect.global_position = player.global_position
 	landed_effect.rotation = player.animation.rotation - PI/2
 	effect_holder.add_child(landed_effect)
+
+func game_over():
+	game_over_sound.play()
+	var tween = get_tree().create_tween()
+	await tween.tween_method(set_shader_value, 0.0, 1.0, 1.0).finished
+	end_game.visible = true
+
+func set_shader_value(value: float):
+	(transition_rect.material as ShaderMaterial).set_shader_parameter("progress", value);
+
+func free_nodes():
+	free_children_in(map_holder)
+	free_children_in(background_holder)
+	free_children_in(lanes_holder)
+	free_children_in(shadow_holder)
+	free_children_in(effect_holder)
+	free_children_in(bumper_holder)
+	free_children_in(killer_holder)
+	free_children_in(detail_holder)
+
+func free_children_in(node):
+	for child in node.get_children():
+		if player.global_position.y - child.global_position.y > 2000:
+			child.queue_free()
+			print("freeing ", child)
