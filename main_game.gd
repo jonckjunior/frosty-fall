@@ -6,6 +6,7 @@ class_name MainGame
 @export var click_on_me: RichTextLabel
 @export var transition_rect: ColorRect
 @export var end_game: Node2D
+@export var game_over_sound: AudioStreamPlayer2D
 
 @onready var landed_effect_raw: Resource = load("res://assets/player/falling_particle.tscn")
 
@@ -17,7 +18,7 @@ class_name MainGame
 @onready var detail_holder: Node2D = $Holders/DetailHolder
 @onready var shadow_holder: Node2D = $Holders/ShadowHolder
 @onready var bumper_holder: Node2D = $Holders/BumperHolder
-@onready var game_over_sound: AudioStreamPlayer2D = $Audio/GameOverSound
+
 @onready var possible_maps: Array = [
 	preload("res://game_components/map_pieces/map_0/map_0.tmx"),
 	preload("res://game_components/map_pieces/map_1/map_1.tmx"),
@@ -51,8 +52,8 @@ func add_new_map(map_index: int):
 	var ender_tile = new_map.get_node("Ender").get_used_cells(0).front()
 	
 	if not loaded_maps.is_empty():
-		var ender_position = loaded_maps.back().second
-		new_map.global_position = ender_position - Vector2(starter_tile.x, 0) * 16 + Vector2(0, 16)
+		var previous_ender_position = loaded_maps.back().second
+		new_map.global_position = previous_ender_position - Vector2(starter_tile.x, 0) * 16 + Vector2(0, 16)
 	
 	var ender_position = new_map.global_position + ender_tile * 16.0
 	var starter_position = new_map.global_position + starter_tile * 16.0
@@ -140,7 +141,7 @@ func create_trail_for_player():
 	effect_holder.add_child(trail)
 
 func _input(event):
-	if event is InputEvent and (event as InputEvent).is_action_pressed("click"):
+	if event is InputEvent and (event as InputEvent).is_action_pressed("click") and not player.is_dying and player.is_initialized == false:
 		player.initialize_player()
 		cameraFollower.apply_shake(0.2)
 		click_on_me.visible = false
@@ -176,4 +177,3 @@ func free_children_in(node):
 	for child in node.get_children():
 		if player.global_position.y - child.global_position.y > 2000:
 			child.queue_free()
-			print("freeing ", child)

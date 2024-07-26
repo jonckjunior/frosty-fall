@@ -1,8 +1,9 @@
-[gd_scene load_steps=132 format=3 uid="uid://bchh3wagdvnrv"]
+[gd_scene load_steps=133 format=3 uid="uid://bchh3wagdvnrv"]
 
 [ext_resource type="Script" path="res://main_game.gd" id="1_ttjcc"]
 [ext_resource type="PackedScene" uid="uid://b82yagyjxtrj" path="res://game_components/player/player.tscn" id="2_t67bp"]
 [ext_resource type="PackedScene" uid="uid://cpvtjkg4vntmx" path="res://game_components/camera/camera_follower.tscn" id="3_e231b"]
+[ext_resource type="AudioStream" uid="uid://cdmp5py6nfow2" path="res://assets/audio/Three Red Hearts - Deep Blue.ogg" id="4_c0ica"]
 [ext_resource type="PackedScene" uid="uid://f0mstioeamdm" path="res://assets/standard_text.tscn" id="5_odbx6"]
 [ext_resource type="Script" path="res://scripts/score_points.gd" id="6_2imfe"]
 [ext_resource type="Shader" path="res://main_game.gdshader" id="6_hs1qh"]
@@ -863,7 +864,7 @@ animations = [{
 "speed": 60.0
 }]
 
-[node name="MainGame" type="Node2D" node_paths=PackedStringArray("player", "cameraFollower", "click_on_me", "transition_rect", "end_game")]
+[node name="MainGame" type="Node2D" node_paths=PackedStringArray("player", "cameraFollower", "click_on_me", "transition_rect", "end_game", "game_over_sound")]
 texture_filter = 1
 script = ExtResource("1_ttjcc")
 player = NodePath("Holders/PlayerHolder/Player")
@@ -871,6 +872,7 @@ cameraFollower = NodePath("CameraFollower")
 click_on_me = NodePath("Holders/ClickOnMeText")
 transition_rect = NodePath("CanvasLayer/Transition/TransitionRect")
 end_game = NodePath("CanvasLayer/EndGame")
+game_over_sound = NodePath("CameraFollower/Audio/GameOverSound")
 
 [node name="CameraFollower" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_e231b")]
 target = NodePath("../Holders/PlayerHolder/Player")
@@ -888,6 +890,17 @@ offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.933333, 0.972549, 0.996078, 1)
+
+[node name="Audio" type="Node2D" parent="CameraFollower"]
+position = Vector2(-90, -160)
+
+[node name="GameOverSound" type="AudioStreamPlayer2D" parent="CameraFollower/Audio"]
+stream = ExtResource("6_lrh0n")
+
+[node name="Soundtrack" type="AudioStreamPlayer2D" parent="CameraFollower/Audio"]
+stream = ExtResource("4_c0ica")
+volume_db = -6.566
+autoplay = true
 
 [node name="Holders" type="Node2D" parent="."]
 
@@ -925,15 +938,15 @@ position = Vector2(148, 57)
 texture_filter = 1
 
 [node name="ScoreText" parent="CanvasLayer/Score" instance=ExtResource("5_odbx6")]
-offset_left = 118.0
+offset_left = 102.0
 offset_top = 2.0
-offset_right = 276.0
+offset_right = 260.0
 offset_bottom = 42.0
 
 [node name="ScorePoints" parent="CanvasLayer/Score" instance=ExtResource("5_odbx6")]
-offset_left = 124.0
+offset_left = 85.0
 offset_top = 17.0
-offset_right = 176.0
+offset_right = 179.0
 offset_bottom = 51.0
 text = "[center]123.3"
 script = ExtResource("6_2imfe")
@@ -976,8 +989,3 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "[center]w1231w"
 script = ExtResource("6_2imfe")
-
-[node name="Audio" type="Node2D" parent="."]
-
-[node name="GameOverSound" type="AudioStreamPlayer2D" parent="Audio"]
-stream = ExtResource("6_lrh0n")

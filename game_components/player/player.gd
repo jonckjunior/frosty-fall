@@ -12,6 +12,7 @@ class_name Player extends CharacterBody2D
 var movement_speed: float = 0.0
 var max_movement_speed: float = 500.0
 var is_initialized: bool = false
+var is_dying: bool = false
 var boost: float = 0
 
 signal create_trail
@@ -39,7 +40,7 @@ func _physics_process(delta):
 		return
 	handle_gravity(delta)
 	handle_animation()
-	handle_movement(delta)
+	handle_movement()
 	handle_shadow()
 	handle_lane_check()
 	squish_and_squash()
@@ -51,7 +52,7 @@ func handle_gravity(delta):
 	else:
 		boost += delta * 7
 
-func handle_movement(delta):
+func handle_movement():
 	var dir = Vector2(cos(direction.rotation), sin(direction.rotation))
 	velocity = dir * movement_speed - velocity
 	movement_speed = min(movement_speed, max_movement_speed)
@@ -105,6 +106,7 @@ func die_to_obstacle():
 	is_initialized = false
 	velocity = Vector2.ZERO
 	animation.play("shatter")
+	is_dying = true
 
 func squish_and_squash() -> void:
 	var maxX = max_movement_speed
