@@ -28,6 +28,7 @@ func play_rowing_sound():
 	if animation.animation == "default" and animation.frame == 1:
 		$RowingSound.play()
 		landed.emit()
+		movement_speed += 10
 	if animation.animation == "shatter" and animation.frame == 40:
 		explosion_sound.play()
 	if animation.animation == "shatter" and animation.frame == 80:
@@ -53,7 +54,6 @@ func handle_gravity(delta):
 func handle_movement(delta):
 	var dir = Vector2(cos(direction.rotation), sin(direction.rotation))
 	velocity = dir * movement_speed - velocity
-	movement_speed += delta * 5
 	movement_speed = min(movement_speed, max_movement_speed)
 
 func handle_animation():
