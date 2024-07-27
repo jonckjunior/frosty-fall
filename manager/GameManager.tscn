@@ -1,4 +1,4 @@
-[gd_scene load_steps=134 format=3 uid="uid://6u5srxann5a2"]
+[gd_scene load_steps=135 format=3 uid="uid://6u5srxann5a2"]
 
 [ext_resource type="Script" path="res://manager/game_manager.gd" id="1_pbw4q"]
 [ext_resource type="Script" path="res://manager/AudioButton.gd" id="2_6ifii"]
@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://dqnn777akrnpp" path="res://assets/audio/game_over.wav" id="7_xowvw"]
 [ext_resource type="Script" path="res://manager/restart_button.gd" id="8_psqq2"]
 [ext_resource type="AudioStream" uid="uid://cdmp5py6nfow2" path="res://assets/audio/soundtrack.ogg" id="8_tv55e"]
+[ext_resource type="Script" path="res://manager/standard_text.gd" id="9_lkki0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lj4gq"]
 shader = ExtResource("7_bddy3")
@@ -884,7 +885,7 @@ script = ExtResource("1_pbw4q")
 material = SubResource("ShaderMaterial_lj4gq")
 offset_right = 180.0
 offset_bottom = 320.0
-color = Color(0, 0, 0, 1)
+color = Color(1, 0, 0, 1)
 
 [node name="Textures" type="Node2D" parent="CanvasLayer"]
 texture_filter = 1
@@ -903,11 +904,11 @@ centered = false
 visible = false
 
 [node name="ScoreText" type="AnimatedSprite2D" parent="CanvasLayer/Textures/EndGame"]
-position = Vector2(88, 36)
+position = Vector2(81, 54)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_jvxbx")
 autoplay = "default"
-frame_progress = 0.0239196
+frame_progress = 0.234194
 
 [node name="ScorePoint" parent="CanvasLayer/Textures/EndGame" instance=ExtResource("5_82bqh")]
 anchors_preset = 8
@@ -915,24 +916,36 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 40.0
-offset_top = 6.0
-offset_right = 92.0
-offset_bottom = 74.0
+offset_left = 3.0
+offset_top = 16.0
+offset_right = 89.0
+offset_bottom = 84.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
-text = "[wave] [center] 313.1"
+text = "[wave] [center]313.1"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Textures/EndGame"]
-position = Vector2(49, 171)
+position = Vector2(45, 173)
 sprite_frames = SubResource("SpriteFrames_lcp1u")
 centered = false
 script = ExtResource("8_psqq2")
+
+[node name="HighestScore" parent="CanvasLayer/Textures/EndGame" instance=ExtResource("5_82bqh")]
+offset_left = 3.0
+offset_top = 265.0
+offset_right = 178.0
+offset_bottom = 342.0
+text = "
+[center]highest: [wave]2800.43"
+script = ExtResource("9_lkki0")
 
 [node name="GameOverSound" type="AudioStreamPlayer2D" parent="CanvasLayer"]
 stream = ExtResource("7_xowvw")
 
 [node name="Soundtrack" type="AudioStreamPlayer2D" parent="CanvasLayer"]
 stream = ExtResource("8_tv55e")
+volume_db = -5.0
 autoplay = true
+
+[node name="AudioListener2D" type="AudioListener2D" parent="CanvasLayer"]

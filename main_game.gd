@@ -28,11 +28,12 @@ class_name MainGame
 ]
 
 var loaded_maps: Array[Pair] = []
+var is_active: bool = false
 
 signal game_over 
 
 func _ready():
-	add_new_map(4)
+	add_new_map(0)
 	player.create_trail.connect(create_trail_for_player)
 	player.landed.connect(on_player_landed)
 	
@@ -142,7 +143,7 @@ func create_trail_for_player():
 	effect_holder.add_child(trail)
 
 func _input(event):
-	if event is InputEvent and (event as InputEvent).is_action_pressed("click") and not player.is_dying and player.is_initialized == false:
+	if event is InputEvent and (event as InputEvent).is_action_pressed("click") and not player.is_dying and player.is_initialized == false and is_active:
 		player.initialize_player()
 		cameraFollower.apply_shake(0.2)
 		click_on_me.play("explode")

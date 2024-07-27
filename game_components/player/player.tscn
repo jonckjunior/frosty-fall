@@ -1225,7 +1225,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m5xyb"]
-radius = 5.0
+radius = 4.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n20nu"]
 radius = 8.0
@@ -1247,7 +1247,7 @@ sprite_frames = SubResource("SpriteFrames_pgn62")
 autoplay = "default"
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2)
+position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_m5xyb")
 
 [node name="Direction" type="RayCast2D" parent="."]

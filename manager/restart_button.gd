@@ -3,7 +3,7 @@ extends AnimatedSprite2D
 func _ready():
 	start_tween()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if is_inside_area() and Input.is_action_just_pressed("click") and is_visible_in_tree():
 		GameManager.restart()
 		

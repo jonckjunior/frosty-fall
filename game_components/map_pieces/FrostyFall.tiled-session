@@ -31,11 +31,19 @@
             }
         },
         "map_0/map_0.tmx": {
-            "scale": 0.75,
-            "selectedLayer": 1,
+            "scale": 1,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 315.3333333333333,
-                "y": 494
+                "x": 154.5,
+                "y": 535.5
+            }
+        },
+        "map_0/map_000.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 259,
+                "y": 625.6666666666667
             }
         },
         "map_0/map_2.tmx": {
@@ -147,16 +155,18 @@
     ],
     "project": "FrostyFall.tiled-project",
     "recentFiles": [
-        "map_2/mapzera.tmx",
+        "map_3/map_3.tmx",
+        "map_0/map_0.tmx",
+        "map_4/map_4.tmx",
         "map_2/map_2.tmx",
+        "map_3/mapzera_3.tmx",
+        "map_1/map_1.tmx",
+        "map_3/map3.tmx",
+        "map_2/mapzera.tmx",
         "map_0/map.tmx",
         "map_2/map.tmx",
         "map_1/map_2.tmx",
-        "map_0/map_2.tmx",
-        "map_1/map.tmx",
-        "map_0.tmx",
-        "FrostyFall.tsx",
-        "map_1.tmx"
+        "map_0/map_2.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
