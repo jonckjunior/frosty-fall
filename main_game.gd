@@ -20,11 +20,11 @@ class_name MainGame
 @onready var bumper_holder: Node2D = $Holders/BumperHolder
 
 @onready var possible_maps: Array = [
-	preload("res://game_components/map_pieces/map_0/map_0.tmx"),
-	preload("res://game_components/map_pieces/map_1/map_1.tmx"),
-	preload("res://game_components/map_pieces/map_2/map_2.tmx"),
-	preload("res://game_components/map_pieces/map_3/mapzera_3.tmx"),
-	preload("res://game_components/map_pieces/map_4/map_4.tmx"),
+	preload("res://game_components/map_pieces/map_0/map_000.tmx"),
+	preload("res://game_components/map_pieces/map_1/map_111.tmx"),
+	preload("res://game_components/map_pieces/map_2/map_222.tmx"),
+	preload("res://game_components/map_pieces/map_3/map_333.tmx"),
+	preload("res://game_components/map_pieces/map_4/map_444.tmx"),
 ]
 
 var loaded_maps: Array[Pair] = []
@@ -32,14 +32,14 @@ var loaded_maps: Array[Pair] = []
 signal game_over 
 
 func _ready():
-	add_new_map(0)
+	add_new_map(4)
 	player.create_trail.connect(create_trail_for_player)
 	player.landed.connect(on_player_landed)
 	
 	GameManager.main_game = self
 
 func _physics_process(_delta):
-	if player.global_position.y > loaded_maps.back().first.y and loaded_maps.size() < 10:
+	if player.global_position.y > loaded_maps.back().first.y:
 		add_new_map(randi_range(0, possible_maps.size() - 1))
 	
 	free_nodes()

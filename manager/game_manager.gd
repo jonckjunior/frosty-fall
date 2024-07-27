@@ -30,9 +30,9 @@ func on_game_over():
 	player_score = 0
 	main_game.queue_free()
 	end_game.visible = true
-	await get_tree().create_timer(2.0).timeout
+
+func restart():
 	start_game()
-	
 	end_game.visible = false
 	await create_tween().tween_method(set_shader_value, 1.0, 0.0, 1.0).finished
 

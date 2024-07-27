@@ -1,10 +1,3 @@
-[gd_scene load_steps=2 format=3 uid="uid://dcuvjvsp1gjvd"]
-
-[ext_resource type="AudioStream" uid="uid://cdmp5py6nfow2" path="res://assets/audio/Three Red Hearts - Deep Blue.ogg" id="1_oeg5m"]
+[gd_scene format=3 uid="uid://dcuvjvsp1gjvd"]
 
 [node name="GameHolder" type="Node2D"]
-
-[node name="Soundtrack" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("1_oeg5m")
-volume_db = -5.0
-autoplay = true
