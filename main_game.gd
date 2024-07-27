@@ -8,8 +8,11 @@ class_name MainGame
 @export var end_game: Node2D
 @export var game_over_sound: AudioStreamPlayer2D
 
+@onready var snowman_raw: Resource = load("res://game_components/snowman.tscn")
 @onready var landed_effect_raw: Resource = load("res://assets/player/falling_particle.tscn")
+@onready var wolf_raw: Resource = load("res://assets/wolf/Wolf.tscn")
 
+@onready var stop_player_area: Area2D = $Holders/KillerHolder/StopPlayer
 @onready var map_holder: Node2D = $Holders/MapHolder
 @onready var lanes_holder: Node2D = $Holders/LanesHolder
 @onready var killer_holder: Node2D = $Holders/KillerHolder
@@ -18,17 +21,20 @@ class_name MainGame
 @onready var detail_holder: Node2D = $Holders/DetailHolder
 @onready var shadow_holder: Node2D = $Holders/ShadowHolder
 @onready var bumper_holder: Node2D = $Holders/BumperHolder
+@onready var snowman_holder: Node2D = $Holders/SnowmanHolder
+@onready var wolf_holder: Node2D = $Holders/WolfHolder
 
 @onready var possible_maps: Array = [
-	preload("res://game_components/map_pieces/map_0/map_000.tmx"),
-	preload("res://game_components/map_pieces/map_1/map_111.tmx"),
-	preload("res://game_components/map_pieces/map_2/map_222.tmx"),
-	preload("res://game_components/map_pieces/map_3/map_333.tmx"),
-	preload("res://game_components/map_pieces/map_4/map_444.tmx"),
+	preload("res://game_components/map_pieces/map_0/map_000.tscn"),
+	preload("res://game_components/map_pieces/map_1/map_111.tscn"),
+	preload("res://game_components/map_pieces/map_2/map_222.tscn"),
+	preload("res://game_components/map_pieces/map_3/map_333.tscn"),
+	preload("res://game_components/map_pieces/map_4/map_444.tscn"),
 ]
 
 var loaded_maps: Array[Pair] = []
 var is_active: bool = false
+var time_elapsed: float = 0.0
 
 signal game_over 
 
@@ -36,14 +42,20 @@ func _ready():
 	add_new_map(0)
 	player.create_trail.connect(create_trail_for_player)
 	player.landed.connect(on_player_landed)
+	stop_player_area.connect("body_entered", on_player_killer)
 	
 	GameManager.main_game = self
 
-func _physics_process(_delta):
+func _physics_process(delta):
+	time_elapsed += delta
 	if player.global_position.y > loaded_maps.back().first.y:
 		add_new_map(randi_range(0, possible_maps.size() - 1))
 	
 	free_nodes()
+	if player.movement_speed < 100 and time_elapsed > 10.0 and wolf_holder.get_child_count() == 0:
+		var wolf = wolf_raw.instantiate()
+		wolf.global_position = player.global_position - Vector2(200, 0)
+		wolf_holder.add_child(wolf)
 
 func add_new_map(map_index: int):
 	var new_map = possible_maps[map_index].instantiate()
@@ -67,11 +79,13 @@ func add_new_map(map_index: int):
 	new_map.get_node("Killer").reparent(killer_holder)
 	new_map.get_node("Detail").reparent(detail_holder)
 	new_map.get_node("Bumper").reparent(bumper_holder)
+	new_map.get_node("Snowman").reparent(snowman_holder)
 
 func configure_new_map(new_map):
 	configure_killer(new_map)
 	configure_lanes(new_map)
 	configure_bumper(new_map)
+	configure_snowman(new_map)
 
 func configure_lanes(new_map):
 	var tilemap: TileMap = new_map.get_node("Lane")
@@ -125,6 +139,15 @@ func configure_bumper(new_map):
 		
 		area.connect("body_entered", on_hit_bumper)
 
+func configure_snowman(new_map):
+	var tilemap: TileMap = new_map.get_node("Snowman")
+	var used_cells = tilemap.get_used_cells(0)
+	for cell in used_cells:
+		tilemap.set_cell(0, cell, -1)
+		var snowman = snowman_raw.instantiate()
+		snowman.global_position = cell * 16.0 + Vector2(8, 8)
+		tilemap.add_child(snowman)
+
 func on_player_killer(_body):
 	if not player.is_in_the_air():
 		player.is_initialized = false
@@ -167,6 +190,7 @@ func free_nodes():
 	free_children_in(bumper_holder)
 	free_children_in(killer_holder)
 	free_children_in(detail_holder)
+	free_children_in(snowman_holder)
 
 func free_children_in(node):
 	for child in node.get_children():

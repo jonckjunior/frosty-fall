@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://dh67l5p6pqfgs"]
+
+[ext_resource type="PackedScene" uid="uid://d2n1iw1mvvp2q" path="res://game_components/map_pieces/map_3/map_333.tmx" id="1_q4ehl"]
+
+[node name="map_333" instance=ExtResource("1_q4ehl")]

@@ -885,7 +885,7 @@ script = ExtResource("1_pbw4q")
 material = SubResource("ShaderMaterial_lj4gq")
 offset_right = 180.0
 offset_bottom = 320.0
-color = Color(1, 0, 0, 1)
+color = Color(0, 0, 0, 1)
 
 [node name="Textures" type="Node2D" parent="CanvasLayer"]
 texture_filter = 1
@@ -908,7 +908,7 @@ position = Vector2(81, 54)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_jvxbx")
 autoplay = "default"
-frame_progress = 0.234194
+frame_progress = 0.0264326
 
 [node name="ScorePoint" parent="CanvasLayer/Textures/EndGame" instance=ExtResource("5_82bqh")]
 anchors_preset = 8

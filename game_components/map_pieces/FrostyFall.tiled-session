@@ -39,11 +39,11 @@
             }
         },
         "map_0/map_000.tmx": {
-            "scale": 1.5,
+            "scale": 1,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 259,
-                "y": 625.6666666666667
+                "x": 352.5,
+                "y": 640.5
             }
         },
         "map_0/map_2.tmx": {
@@ -78,6 +78,22 @@
                 "y": 699
             }
         },
+        "map_1/map_111.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 8,
+            "viewCenter": {
+                "x": 236.99999999999997,
+                "y": 559
+            }
+        },
+        "map_1/map_1111.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 291,
+                "y": 729
+            }
+        },
         "map_1/map_2.tmx": {
             "scale": 1,
             "selectedLayer": 5,
@@ -100,6 +116,14 @@
             "viewCenter": {
                 "x": 288.64501679731245,
                 "y": 484.30011198208285
+            }
+        },
+        "map_2/map_222.tmx": {
+            "scale": 0.9302083333333333,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 246.7189249720045,
+                "y": 657.3796192609183
             }
         },
         "map_2/mapzera.tmx": {
@@ -126,6 +150,22 @@
                 "y": 480
             }
         },
+        "map_3/map_333.tmx": {
+            "scale": 1,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 342.5,
+                "y": 354.5
+            }
+        },
+        "map_3/map_3333.tmx": {
+            "scale": 1,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 342.5,
+                "y": 354.5
+            }
+        },
         "map_3/mapzera_3.tmx": {
             "scale": 1,
             "selectedLayer": 0,
@@ -140,6 +180,22 @@
             "viewCenter": {
                 "x": 307.99552071668535,
                 "y": 538.0515117581187
+            }
+        },
+        "map_4/map_444.tmx": {
+            "scale": 0.9302083333333333,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 249.94400895856663,
+                "y": 547.7267637178052
+            }
+        },
+        "map_4/map_4444.tmx": {
+            "scale": 0.9302083333333333,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 339.1713325867861,
+                "y": 530.5263157894736
             }
         }
     },
