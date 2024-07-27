@@ -3,7 +3,7 @@ class_name MainGame
 
 @export var player: Player
 @export var cameraFollower: CameraFollower
-@export var click_on_me: RichTextLabel
+@export var click_on_me: AnimatedSprite2D
 @export var transition_rect: ColorRect
 @export var end_game: Node2D
 @export var game_over_sound: AudioStreamPlayer2D
@@ -29,7 +29,8 @@ class_name MainGame
 
 var loaded_maps: Array[Pair] = []
 
- 
+signal game_over 
+
 func _ready():
 	add_new_map(0)
 	player.create_trail.connect(create_trail_for_player)
@@ -38,7 +39,7 @@ func _ready():
 	GameManager.main_game = self
 
 func _physics_process(_delta):
-	if player.global_position.y > loaded_maps.back().first.y:
+	if player.global_position.y > loaded_maps.back().first.y and loaded_maps.size() < 10:
 		add_new_map(randi_range(0, possible_maps.size() - 1))
 	
 	free_nodes()
@@ -129,7 +130,7 @@ func on_player_killer(_body):
 		cameraFollower.apply_shake(1.0)
 		player.die_to_obstacle()
 		await player.game_over
-		game_over()
+		game_over.emit()
 
 func on_hit_bumper(_body):
 	player.hit_bumper()
@@ -144,7 +145,7 @@ func _input(event):
 	if event is InputEvent and (event as InputEvent).is_action_pressed("click") and not player.is_dying and player.is_initialized == false:
 		player.initialize_player()
 		cameraFollower.apply_shake(0.2)
-		click_on_me.visible = false
+		click_on_me.play("explode")
 	if event is InputEvent and (event as InputEvent).is_action_pressed("reload"):
 		get_tree().reload_current_scene()
 
@@ -154,14 +155,7 @@ func on_player_landed():
 	landed_effect.rotation = player.animation.rotation - PI/2
 	effect_holder.add_child(landed_effect)
 
-func game_over():
-	game_over_sound.play()
-	var tween = get_tree().create_tween()
-	await tween.tween_method(set_shader_value, 0.0, 1.0, 1.0).finished
-	end_game.visible = true
 
-func set_shader_value(value: float):
-	(transition_rect.material as ShaderMaterial).set_shader_parameter("progress", value);
 
 func free_nodes():
 	free_children_in(map_holder)

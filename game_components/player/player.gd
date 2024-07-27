@@ -94,6 +94,7 @@ func handle_shadow():
 func handle_lane_check():
 	if lane_detecter.get_overlapping_areas().is_empty():
 		velocity = Vector2.ZERO
+		GameManager.main_game.on_player_killer(self)
 
 func play_hurt_sound():
 	hurt_sound.play()

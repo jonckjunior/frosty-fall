@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Frosty Fall"
-run/main_scene="res://main_game.tscn"
+run/main_scene="res://game_components/GameHolder.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://assets/player/player.png"
 
 [autoload]
 
-GameManager="*res://manager/game_manager.gd"
+GameManager="*res://manager/GameManager.tscn"
 
 [display]
 
