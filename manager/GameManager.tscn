@@ -932,10 +932,10 @@ centered = false
 script = ExtResource("8_psqq2")
 
 [node name="HighestScore" parent="CanvasLayer/Textures/EndGame" instance=ExtResource("5_82bqh")]
-offset_left = 3.0
-offset_top = 265.0
-offset_right = 178.0
-offset_bottom = 342.0
+offset_left = 0.0
+offset_top = 212.0
+offset_right = 180.0
+offset_bottom = 289.0
 text = "
 [center]highest: [wave]2800.43"
 script = ExtResource("9_lkki0")

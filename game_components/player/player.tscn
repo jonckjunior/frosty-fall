@@ -1231,6 +1231,7 @@ radius = 4.0
 radius = 8.0
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("shadow")]
+texture_filter = 1
 script = ExtResource("1_xnx4q")
 shadow = NodePath("ShadowFixer/Shadow")
 

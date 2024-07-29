@@ -42,8 +42,8 @@
             "scale": 1,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 352.5,
-                "y": 640.5
+                "x": 263.5,
+                "y": 559.5
             }
         },
         "map_0/map_2.tmx": {
@@ -79,11 +79,11 @@
             }
         },
         "map_1/map_111.tmx": {
-            "scale": 1.5,
-            "selectedLayer": 8,
+            "scale": 1,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 236.99999999999997,
-                "y": 559
+                "x": 298.5,
+                "y": 452.5
             }
         },
         "map_1/map_1111.tmx": {
@@ -122,8 +122,16 @@
             "scale": 0.9302083333333333,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 246.7189249720045,
-                "y": 657.3796192609183
+                "x": 275.74468085106383,
+                "y": 489.6752519596865
+            }
+        },
+        "map_2/map_2222.tmx": {
+            "scale": 1,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 284.5,
+                "y": 558.5
             }
         },
         "map_2/mapzera.tmx": {
@@ -151,11 +159,11 @@
             }
         },
         "map_3/map_333.tmx": {
-            "scale": 1,
+            "scale": 0.75,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 342.5,
-                "y": 354.5
+                "x": 336.66666666666663,
+                "y": 472.66666666666663
             }
         },
         "map_3/map_3333.tmx": {
@@ -183,11 +191,11 @@
             }
         },
         "map_4/map_444.tmx": {
-            "scale": 0.9302083333333333,
-            "selectedLayer": 3,
+            "scale": 2,
+            "selectedLayer": 8,
             "viewCenter": {
-                "x": 249.94400895856663,
-                "y": 547.7267637178052
+                "x": 230.75,
+                "y": 86.75
             }
         },
         "map_4/map_4444.tmx": {
@@ -196,6 +204,14 @@
             "viewCenter": {
                 "x": 339.1713325867861,
                 "y": 530.5263157894736
+            }
+        },
+        "map_5/map_5.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 220.66666666666663,
+                "y": 351.3333333333333
             }
         }
     },

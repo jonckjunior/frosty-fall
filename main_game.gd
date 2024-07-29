@@ -4,13 +4,14 @@ class_name MainGame
 @export var player: Player
 @export var cameraFollower: CameraFollower
 @export var click_on_me: AnimatedSprite2D
-@export var transition_rect: ColorRect
-@export var end_game: Node2D
-@export var game_over_sound: AudioStreamPlayer2D
+@export var click_on_me_shake: RichTextLabel
+@export var shadowy: ColorRect
+@export var score: Node2D
 
 @onready var snowman_raw: Resource = load("res://game_components/snowman.tscn")
 @onready var landed_effect_raw: Resource = load("res://assets/player/falling_particle.tscn")
 @onready var wolf_raw: Resource = load("res://assets/wolf/Wolf.tscn")
+@onready var tutorial: RichTextLabel = $Tutorial
 
 @onready var stop_player_area: Area2D = $Holders/KillerHolder/StopPlayer
 @onready var map_holder: Node2D = $Holders/MapHolder
@@ -47,7 +48,8 @@ func _ready():
 	GameManager.main_game = self
 
 func _physics_process(delta):
-	time_elapsed += delta
+	if tutorial.visible == false:
+		time_elapsed += delta
 	if player.global_position.y > loaded_maps.back().first.y:
 		add_new_map(randi_range(0, possible_maps.size() - 1))
 	
@@ -169,7 +171,13 @@ func _input(event):
 	if event is InputEvent and (event as InputEvent).is_action_pressed("click") and not player.is_dying and player.is_initialized == false and is_active:
 		player.initialize_player()
 		cameraFollower.apply_shake(0.2)
-		click_on_me.play("explode")
+		
+		shadowy.visible = false
+		score.visible = true
+		create_tween().tween_property(click_on_me_shake, "global_position", click_on_me_shake.global_position + Vector2(-200, 0), 0.5).set_trans(Tween.TRANS_SPRING)
+		await create_tween().tween_property(tutorial, "global_position", tutorial.global_position + Vector2(-200, 0), 0.5).set_trans(Tween.TRANS_SPRING).finished
+		tutorial.visible = false
+		
 	if event is InputEvent and (event as InputEvent).is_action_pressed("reload"):
 		get_tree().reload_current_scene()
 

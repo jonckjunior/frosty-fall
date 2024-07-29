@@ -10,6 +10,7 @@ extends Node
 var main_game: MainGame
 var player_score: float
 var max_score: float = 0
+var mouse_position_canvas: Vector2
 
 func _ready():
 	start_game()
@@ -73,6 +74,8 @@ func on_game_over():
 	
 	highest_score.update()
 	end_game.visible = true
+	end_game.global_position.x -= 200
+	create_tween().tween_property(end_game, "global_position:x", end_game.global_position.x + 200, 0.5).set_trans(Tween.TRANS_SPRING)
 
 func restart():
 	start_game()

@@ -54,8 +54,8 @@ func handle_gravity(delta):
 
 func handle_movement():
 	var dir = Vector2(cos(direction.rotation), sin(direction.rotation))
-	velocity = dir * movement_speed - velocity
 	movement_speed = min(movement_speed, max_movement_speed)
+	velocity = dir * movement_speed - velocity
 
 func handle_animation():
 	if animation.position.y + boost >= 0 and animation.position.y < 0:
@@ -110,18 +110,10 @@ func die_to_obstacle():
 	is_dying = true
 
 func squish_and_squash() -> void:
-	var maxX = max_movement_speed
-	var maxY = max_movement_speed
+	var ratio = movement_speed / max_movement_speed * 0.2
 	
-	var newScaleY = 1 - min(abs(velocity.x), maxX) / maxX * 0.5
-	var newScaleX = 1 - min(abs(velocity.y), maxY) / maxY * 0.5
-	
-	var sum = newScaleX + newScaleY
-	if sum < 2:
-		if newScaleX >= newScaleY:
-			newScaleX += 2 - sum
-		else:
-			newScaleY += 2 - sum
+	animation.scale.x = 1 - ratio
+	animation.scale.y = 1 + ratio
 
-	animation.scale.x = snapped(lerp(animation.scale.x, newScaleX, 0.2), 0.04)
-	animation.scale.y = snapped(lerp(animation.scale.y, newScaleY, 0.2), 0.04)
+	#animation.scale.x = snapped(lerp(animation.scale.x, newScaleX, 0.2), 0.04)
+	#animation.scale.y = snapped(lerp(animation.scale.y, newScaleY, 0.2), 0.04)

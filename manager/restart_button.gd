@@ -6,6 +6,8 @@ func _ready():
 func _physics_process(_delta):
 	if is_inside_area() and Input.is_action_just_pressed("click") and is_visible_in_tree():
 		GameManager.restart()
+	
+	GameManager.mouse_position_canvas = get_global_mouse_position()
 		
 func is_inside_area():
 	var texture_size = Vector2(84, 14) * 1.2
